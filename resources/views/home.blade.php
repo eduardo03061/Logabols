@@ -115,7 +115,7 @@
                             Niger
                           </td>
                           <td>
-                            Oud-Turnhout
+                            Entregado
                           </td>
                           <td class="text-primary">
                             $36,738
@@ -132,7 +132,7 @@
                             Curaçao
                           </td>
                           <td>
-                            Sinaai-Waas
+                            Sin atender
                           </td>
                           <td class="text-primary">
                             $23,789
@@ -149,7 +149,7 @@
                             Netherlands
                           </td>
                           <td>
-                            Baileux
+                            Entregado
                           </td>
                           <td class="text-primary">
                             $56,142
@@ -166,7 +166,7 @@
                             Korea, South
                           </td>
                           <td>
-                            Overland Park
+                            Procesado
                           </td>
                           <td class="text-primary">
                             $38,735
@@ -183,7 +183,7 @@
                             Malawi
                           </td>
                           <td>
-                            Feldkirchen in Kärnten
+                            En proceso
                           </td>
                           <td class="text-primary">
                             $63,542
@@ -200,7 +200,7 @@
                             Chile
                           </td>
                           <td>
-                            Gloucester
+                            En proceso
                           </td>
                           <td class="text-primary">
                             $78,615
