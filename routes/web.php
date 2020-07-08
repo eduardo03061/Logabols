@@ -29,3 +29,4 @@ Route::get('/Nomina/Registro_Nuevo', 'NominaController@create')->name('nomina.cr
 
 Route::post('/Nomina/Registro_Nuevo', 'NominaController@storage')->name('nomina.storage');
 
+Route::get('/Nomina/Detalles/{id}', 'NominaController@show')->name('nomina.showdetails');

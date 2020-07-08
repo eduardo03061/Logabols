@@ -51,116 +51,49 @@
       </nav>
 <div class="content">
         <div class="container-fluid">
-                           @if ( session('mensaje') )
-                                @if (session('mensaje')=='Correctamente creado')
-                                <div class="alert alert-success">{{ session('mensaje') }}</div>
-                                @else
-                                <div class="alert alert-danger">{{ session('mensaje') }}</div>
-                                @endif
-
-                            @endif
           <form action="{{ route('nomina.storage') }}" method="POST">
           @csrf
-                    <div class="p-4" style="background:#f5f5f5;  margin-bottom:1em; padding-top:1em; padding-bottom:1em;" id="vuecronicos">
-                        <div style="float:right;"><button type="button" class="btn btn-success" style="margin-left:10px; margin-right:10px;" v-on:click="cronicos += 1">+</button><button type="button" class="btn btn-danger" v-on:click="if (cronicos != 0)cronicos -= 1">-</button></div>
+                    <div class="p-4" style="background:#f5f5f5;  margin-bottom:1em; padding-top:1em; padding-bottom:1em;">
                         <h3>Nomina</h3>
-                        <div class="row col-12">
-                            <div v-if="cronicos == 0" class="col-md-12"><h3><small>Agrega un registro</small></h3></div>
-                            <table v-if="cronicos > 0" class="table mx-auto">
+                        <div class="row col-12"> 
+                            <table class="table mx-auto">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Basura</th><th>Camiseta</th>
+                                        <th scope="col">Basura</th>
+                                        <th>Camiseta</th>
                                         <th scope="col">Jumbo</th>
                                         <th scope="col">Reempacado</th>
                                         <th scope="col">Empacado</th>
+                                        <th>Total</th>
+                                        <th>Firma</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($nomina as $nm)
                                     <tr v-for="cronico in cronicos">
-                                        <td><input type="text" class="form-control" name="Nombre[]" id="exampleInputEmail1" placeholder="" required ></td>
-                                        <td><input type="number" class="form-control" name="Basura[]" id="exampleInputEmail1" placeholder="" required ></td>
-                                        <td><input type="number" class="form-control" name="Camiseta[]" id="exampleInputEmail1" placeholder="" required ></td>
-                                        <td><input type="number" class="form-control" name="Jumbo[]" id="exampleInputEmail1" placeholder="" required ></td>
-                                        <td><input type="number" class="form-control" name="Reempacado[]" id="exampleInputEmail1" placeholder="" required ></td>
-                                        <td><input type="number" class="form-control" name="Empacado[]" id="exampleInputEmail1" placeholder="" required ></td>
-                                    </tr>
+                                        <td>{{$nm->name}}</td>
+                                        <td>{{$nm->basura}}</td>
+                                        <td>{{$nm->camiseta}}</td>
+                                        <td>{{$nm->jumbo}}</td>
+                                        <td>{{$nm->reempacado}}</td>
+                                        <td>{{$nm->empacado}}</td>
+                                        <td>$ {{$nm->total}}</td>
+                                        <td></td>
+                                        </tr>
+                                  @endforeach
                                 </tbody>
                             </table>
                           
-                            <button type="submit" v-if="cronicos > 0" class="btn btn-success mx-auto">Guardar</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-success mx-auto">Atras</a>  
+                            <input type="button" onclick="window.print();" class="btn btn-primary mx-auto" value="Imprimir">
                         </div>
                   </div>
           </form>
         
         </div>
 </div>
+ 
 <script src="{{ asset('js/vue.js') }}"></script>
-<script>
-
-    
-
-    var app = new Vue({
-        el: '#vuecronicos',
-        data: {
-            cronicos: 0
-        }
-    })
-
-    var app = new Vue({
-        el: '#vueoncologicos',
-        data: {
-            oncologicos: 0
-        }
-    })
-
-    var app = new Vue({
-        el: '#vuetransfusionales',
-        data: {
-            transfusionales: 0
-        }
-    })
-
-    var app = new Vue({
-        el: '#vuetoxicos',
-        data: {
-            toxicos: 0
-        }
-    })
-
-    var app = new Vue({
-        el: '#vuepartescuerpos',
-        data: {
-            partescuerpos: 0
-        }
-    })
-
-    var app = new Vue({
-        el: "#masa",
-        data: {
-            imc: 0,
-            peso: 0,
-            talla: 0
-        },
-
-        methods: {
-            calcularmasa: function () {
-
-                masa = this.peso / this.talla ** 2
-                this.imc = masa
-
-            }
-        }
-    })
-    function reload(){
-      window.location.href = "{{ route('nomina.list') }}";    
-    }
-    @if ( session('mensaje') )
-        @if (session('mensaje')=='Correctamente creado')
-          setInterval('reload()',2000);                  
-        @endif
-
-    @endif
-    
-</script>
+ 
 @endsection

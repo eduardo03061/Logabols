@@ -100,74 +100,21 @@
                         
                       </thead>
                       <tbody>
-                        <tr>
+                      @foreach($solicitudes as $solicitud)
+                      <tr>
                           <td>
-                            1
+                            <a href="{{ route('nomina.showdetails', $solicitud->id)  }}">{{$solicitud->id}}</a> 
                           </td>
                           <td>
-                            Dakota Rice
+                          {{$solicitud->fecha}}
                           </td>
                           
                           <td class="text-primary">
-                            $36,738
+                            $ {{$cantidad}} 
                           </td>
                         </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
+                      @endforeach
+                         
                       </tbody>
                     </table>
                   </div>
