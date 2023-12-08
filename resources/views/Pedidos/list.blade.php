@@ -103,14 +103,14 @@
                                     @foreach($solicitudes as $solicitud => $data)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('nomina.showdetails', $data->id)  }}">{{$data->id}}</a>
+                                            <a href="{{ route('pedidos.showdetails', $data->id)  }}">{{$data->id}}</a>
                                         </td>
                                         <td>
                                             {{$data->fecha}}
                                         </td>
 
                                         <td class="text-primary">
-                                            $ {{$data->total}}
+                                            {{$data->total}}
                                         </td>
                                     </tr>
                                     @endforeach

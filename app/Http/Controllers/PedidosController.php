@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-use App\Models\Nomina;
-use App\Models\RegistrosNomina;
+use App\Models\Pedidos;
+use App\Models\RegistrosPedidos;
 
 class PedidosController extends Controller
 {
@@ -20,7 +20,7 @@ class PedidosController extends Controller
     public function index()
     {
         
-        $solicitudes =  Nomina::all()->toArray();
+        $solicitudes =  Pedidos::all()->toArray();
         $cantidad = 0;
        
         //dd(gettype($solicitudes)); 
@@ -28,10 +28,10 @@ class PedidosController extends Controller
         $results = array_map(function($element)
         {
             //dd($element['id']);
-            $registros = RegistrosNomina::where('id_nomina','=',$element['id'])->get();
+            $registros = RegistrosPedidos::where('id_pedido','=',$element['id'])->get();
             $total = 0;
             for($i = 0; $i < sizeof($registros); $i++){
-                $total += $registros[$i]->total;
+                $total += $registros[$i]->cantidad;
             }
     
             $nomina = new \stdClass();
@@ -50,16 +50,16 @@ class PedidosController extends Controller
         return view('Pedidos.create');
     }
     public function show($id){
-        $nomina = RegistrosNomina::where('id_nomina','=',$id)->get();
+        $nomina = RegistrosPedidos::where('id_pedido','=',$id)->get();
   
-        return view('Nomina.details', compact('nomina'));
+        return view('Pedidos.details', compact('nomina'));
     }
     public function storage(Request $request){ 
         try {
             $dt= Carbon::now()->toDateTimeString();
-            $nomina = new Nomina();
-            $nomina->fecha= $dt;
-            $nomina->save();
+            $pedido = new Pedidos();
+            $pedido->fecha= $dt;
+            $pedido->save();
             
             $arrayTipo=$request->get('Tipo');
             $arrayMedida=$request->get('Medida');
@@ -69,11 +69,13 @@ class PedidosController extends Controller
             for($id = 0; $id < sizeof($arrayTipo); $id++)
             {
 
-                $registros = new RegistrosNomina();
-                $registros->name=$arrayTipo[$id];
-                $registros->basura=$arrayMedida[$id]; 
-                $registros->camiseta=$arrayCantidad[$id];
-                $registros->jumbo=$arrayNota[$id]; 
+                $registros = new RegistrosPedidos();
+                $registros->tipo=$arrayTipo[$id];
+                $registros->medida=$arrayMedida[$id]; 
+                $registros->cantidad=$arrayCantidad[$id];
+                $registros->nota=$arrayNota[$id]; 
+
+                $registros->id_pedido= $pedido->id;
 
                   
                 $registros->save();  

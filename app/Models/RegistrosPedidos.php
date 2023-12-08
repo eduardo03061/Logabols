@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Pedidos;
 
-class RegistroPedidos extends Authenticatable
+class RegistrosPedidos extends Authenticatable
 {
     use Notifiable;
 
