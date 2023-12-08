@@ -61,34 +61,21 @@ class PedidosController extends Controller
             $nomina->fecha= $dt;
             $nomina->save();
             
-            $arrayNombres=$request->get('Nombre');
-            $arrayBasura=$request->get('Basura');
-            $arrayCamiseta=$request->get('Camiseta');
-            $arrayJumbo=$request->get('Jumbo');
-            $arrayReempacado=$request->get('Reempacado');
-            $arrayEmpacado=$request->get('Empacado');
+            $arrayTipo=$request->get('Tipo');
+            $arrayMedida=$request->get('Medida');
+            $arrayCantidad=$request->get('Cantidad');
+            $arrayNota=$request->get('Nota'); 
 
-            for($id = 0; $id < sizeof($arrayNombres); $id++)
+            for($id = 0; $id < sizeof($arrayTipo); $id++)
             {
 
                 $registros = new RegistrosNomina();
-                $registros->name=$arrayNombres[$id];
-                $registros->basura=$arrayBasura[$id]; 
-                $registros->camiseta=$arrayCamiseta[$id];
-                $registros->jumbo=$arrayJumbo[$id];
-                $registros->empacado=$arrayEmpacado[$id];
-                $registros->reempacado=$arrayReempacado[$id];
-                $registros->id_nomina= $nomina->id;
-                //Calcular totales
-                $totalB=$arrayBasura[$id]*25*0.5;
-                $totalC=$arrayCamiseta[$id]*25*0.3;
-                $totalJumbo=$arrayJumbo[$id]*25*0.3;
-                $totalEmpacado=$arrayEmpacado[$id];
-                $totalRempacado=$arrayReempacado[$id]*25*0.15;
+                $registros->name=$arrayTipo[$id];
+                $registros->basura=$arrayMedida[$id]; 
+                $registros->camiseta=$arrayCantidad[$id];
+                $registros->jumbo=$arrayNota[$id]; 
 
-                $TotalN=$totalB+$totalC+$totalJumbo+$totalEmpacado+$totalRempacado;
-
-                $registros->total= $TotalN;
+                  
                 $registros->save();  
             }
             $mensaje="Correctamente creado";

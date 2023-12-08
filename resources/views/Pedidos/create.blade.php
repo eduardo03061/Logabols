@@ -59,7 +59,7 @@
         @endif
 
         @endif
-        <form action="{{ route('nomina.storage') }}" method="POST">
+        <form action="{{ route('pedidos.storage') }}" method="POST">
             @csrf
             <div class="p-4" style="background:#f5f5f5;  margin-bottom:1em; padding-top:1em; padding-bottom:1em;" id="vuecronicos">
                 <div style="float:right;"><button type="button" class="btn btn-success" style="margin-left:10px; margin-right:10px;" v-on:click="cronicos += 1">+</button><button type="button" class="btn btn-danger" v-on:click="if (cronicos != 0)cronicos -= 1">-</button></div>
@@ -79,10 +79,10 @@
                         </thead>
                         <tbody>
                             <tr v-for="cronico in cronicos">
-                                <td><input type="text" class="form-control" name="Nombre[]" id="exampleInputEmail1" placeholder="" required></td>
-                                <td><input type="text" class="form-control" name="Basura[]" id="exampleInputEmail1" placeholder="" required></td>
-                                <td><input type="number" class="form-control" name="Camiseta[]" id="exampleInputEmail1" placeholder="" required></td>
-                                <td><input type="text" class="form-control" name="Jumbo[]" id="exampleInputEmail1" placeholder="" required></td>
+                                <td><input type="text" class="form-control" name="Tipo[]" id="exampleInputEmail1" placeholder="" required></td>
+                                <td><input type="text" class="form-control" name="Medida[]" id="exampleInputEmail1" placeholder="" required></td>
+                                <td><input type="number" class="form-control" name="Cantidad[]" id="exampleInputEmail1" placeholder="" required></td>
+                                <td><input type="text" class="form-control" name="Nota[]" id="exampleInputEmail1" placeholder="" required></td>
                             </tr>
                         </tbody>
                     </table>
@@ -103,54 +103,10 @@
         }
     })
 
-    var app = new Vue({
-        el: '#vueoncologicos',
-        data: {
-            oncologicos: 0
-        }
-    })
-
-    var app = new Vue({
-        el: '#vuetransfusionales',
-        data: {
-            transfusionales: 0
-        }
-    })
-
-    var app = new Vue({
-        el: '#vuetoxicos',
-        data: {
-            toxicos: 0
-        }
-    })
-
-    var app = new Vue({
-        el: '#vuepartescuerpos',
-        data: {
-            partescuerpos: 0
-        }
-    })
-
-    var app = new Vue({
-        el: "#masa",
-        data: {
-            imc: 0,
-            peso: 0,
-            talla: 0
-        },
-
-        methods: {
-            calcularmasa: function() {
-
-                masa = this.peso / this.talla ** 2
-                this.imc = masa
-
-            }
-        }
-    })
+    
 
     function reload() {
-        window.location.href = "{{ route('nomina.list') }}";
+        window.location.href = "{{ route('pedidos.list') }}";
     }
     @if(session('mensaje'))
     @if(session('mensaje') == 'Correctamente creado')
