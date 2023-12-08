@@ -31,15 +31,15 @@
           Logabols
         </a></div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item  active">
+        <ul id="sidebarnav" class="nav">
+          <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+          <a class="nav-link" href="{{ route('pedidos.list') }}">
               <i class="material-icons">shopping_cart</i>
               <p>Pedidos</p>
             </a>
@@ -154,6 +154,20 @@
               window.event.cancelBubble = true;
             }
           }
+        });
+        $(function() {
+          var url = window.location;
+          var element = $('ul#sidebarnav a').filter(function() {
+              return this.href == url;
+          }).addClass('active').parent().addClass('active');
+          while (true) {
+              if (element.is('li')) {
+                  element = element.parent().addClass('in').parent().addClass('active');
+              } else {
+                  break;
+              }
+          }
+
         });
 
         $('.fixed-plugin .active-color span').click(function() {

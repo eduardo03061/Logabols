@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NominaController;
+use App\Http\Controllers\PedidosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -9,7 +12,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+*/ 
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,9 +27,27 @@ Route::get('/Contacto', function () {
 });
 
 
-Route::get('/Nomina', 'NominaController@index')->name('nomina.list');
-Route::get('/Nomina/Registro_Nuevo', 'NominaController@create')->name('nomina.create');
 
-Route::post('/Nomina/Registro_Nuevo', 'NominaController@storage')->name('nomina.storage');
 
-Route::get('/Nomina/Detalles/{id}', 'NominaController@show')->name('nomina.showdetails');
+
+Route::get('/Pedidos', [PedidosController::class, 'index'])->name('pedidos.list');
+
+ 
+Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
+
+ 
+Route::get('/Nomina/Registro_Nuevo', [NominaController::class, 'create'])->name('nomina.create');
+
+ 
+Route::post('/Nomina/Registro_Nuevo', [NominaController::class, 'storage'])->name('nomina.storage');
+
+
+
+ 
+Route::get('/Nomina/Detalles/{id}', [NominaController::class, 'show'])->name('nomina.showdetails');
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Nomina;
-use App\RegistrosNomina;
 use Carbon\Carbon;
+
+use App\Models\Nomina;
+use App\Models\RegistrosNomina;
+
 class NominaController extends Controller
 {
  
@@ -13,12 +15,34 @@ class NominaController extends Controller
     {
         $this->middleware('auth');
     }
-
+   
     
     public function index()
     {
-        $solicitudes =  Nomina::all();
+        
+        $solicitudes =  Nomina::all()->toArray();
         $cantidad = 0;
+       
+        //dd(gettype($solicitudes)); 
+
+        $results = array_map(function($element)
+        {
+            //dd($element['id']);
+            $registros = RegistrosNomina::where('id_nomina','=',$element['id'])->get();
+            $total = 0;
+            for($i = 0; $i < sizeof($registros); $i++){
+                $total += $registros[$i]->total;
+            }
+    
+            $nomina = new \stdClass();
+            $nomina -> id = $element['id'];
+            $nomina -> fecha = $element['fecha'];
+            $nomina -> total = $total;
+            return $nomina;
+        }, $solicitudes);
+       
+        
+        $solicitudes = $results;
         return view('Nomina.list', compact('solicitudes','cantidad')); 
     }
     public function create(){

@@ -1,10 +1,7 @@
 <?php
-
-namespace App;
-
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use App\RegistrosNomina;
 
 class Nomina extends Authenticatable
@@ -20,11 +17,11 @@ class Nomina extends Authenticatable
     protected $table = 'nomina';
 
     protected $fillable = [
-        'id', 'fecha'
+        'id', 'fecha', 'total'
     ];
 
-     public function registro(){ 
+    public function registro()
+    {
         return $this->hasMany(RegistrosNomina::class);
     }
-
 }
