@@ -31,7 +31,7 @@ Route::get('/Contacto', function () {
 
 
 Route::get('/Pedidos', [PedidosController::class, 'index'])->name('pedidos.list');
-
+Route::get('/Pedidos/Registro_Nuevo', [PedidosController::class, 'create'])->name('pedidos.create');
  
 Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
 

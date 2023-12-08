@@ -77,7 +77,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{ route('nomina.create') }}" class="btn btn-success float-right">Agregar</a><br><br>
+                <a href="{{ route('pedidos.create') }}" class="btn btn-success float-right">Agregar</a><br><br>
                 <div class="card">
                     <div class="card-header card-header-success">
                         <h4 class="card-title ">Pedidos</h4>

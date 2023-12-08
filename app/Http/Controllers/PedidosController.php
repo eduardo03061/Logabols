@@ -45,8 +45,9 @@ class PedidosController extends Controller
         $solicitudes = $results;
         return view('Pedidos.list', compact('solicitudes','cantidad')); 
     }
+
     public function create(){
-        return view('Nomina.create');
+        return view('Pedidos.create');
     }
     public function show($id){
         $nomina = RegistrosNomina::where('id_nomina','=',$id)->get();
