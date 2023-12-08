@@ -16,6 +16,10 @@ class CreatePedidosTable extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('fecha');
+            $table->bigInteger('id_user')->unsigned();
+
+            $table->foreign('id_user')->references('id')->on('users')->onDelete("cascade");
+
             $table->timestamps();
 
         });
