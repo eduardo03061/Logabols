@@ -21,7 +21,6 @@ class CreatePedidosTable extends Migration
             $table->foreign('id_user')->references('id')->on('users')->onDelete("cascade");
 
             $table->timestamps();
-
         });
     }
 
