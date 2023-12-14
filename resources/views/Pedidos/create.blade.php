@@ -50,12 +50,11 @@
 <div class="content">
     <div class="container-fluid">
         @if ( session('mensaje') )
-        @if (session('mensaje')=='Correctamente creado')
-        <div class="alert alert-success">{{ session('mensaje') }}</div>
-        @else
-        <div class="alert alert-danger">{{ session('mensaje') }}</div>
-        @endif
-
+            @if (session('mensaje')=='Correctamente creado')
+                <div class="alert alert-success">{{ session('mensaje') }}</div>
+            @else
+                <div class="alert alert-danger">{{ session('mensaje') }}</div>
+            @endif
         @endif
         <form action="{{ route('pedidos.storage') }}" method="POST">
             @csrf
