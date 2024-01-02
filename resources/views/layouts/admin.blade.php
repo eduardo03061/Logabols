@@ -39,7 +39,7 @@
             </a>
           </li>
           <li class="nav-item ">
-          <a class="nav-link" href="{{ route('pedidos.list') }}">
+            <a class="nav-link" href="{{ route('pedidos.list') }}">
               <i class="material-icons">shopping_cart</i>
               <p>Pedidos</p>
             </a>
@@ -56,13 +56,13 @@
               <p>Nomina</p>
             </a>
           </li>
-          
+
         </ul>
       </div>
     </div>
     <div class="main-panel">
-     
-     
+
+
       @yield('content')
 
 
@@ -70,16 +70,16 @@
 
       <footer class="footer">
         <div class="container-fluid">
-          
+
           <div class="copyright float-right">
-           
-            <a href="https://www.creative-tim.com" target="_blank">Logabols</a> 
+
+            <a href="https://www.logabols.com.mx" target="_blank">Logabols</a>
           </div>
         </div>
       </footer>
     </div>
   </div>
- 
+
   <!--   Core JS Files   -->
   <script src="{{ asset('js/core/jquery.min.js') }}"></script>
   <script src="{{ asset('js/core/popper.min.js') }}"></script>
@@ -158,14 +158,14 @@
         $(function() {
           var url = window.location;
           var element = $('ul#sidebarnav a').filter(function() {
-              return this.href == url;
+            return this.href == url;
           }).addClass('active').parent().addClass('active');
           while (true) {
-              if (element.is('li')) {
-                  element = element.parent().addClass('in').parent().addClass('active');
-              } else {
-                  break;
-              }
+            if (element.is('li')) {
+              element = element.parent().addClass('in').parent().addClass('active');
+            } else {
+              break;
+            }
           }
 
         });
