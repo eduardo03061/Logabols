@@ -45,7 +45,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="{{ route('inventory.list') }}">
               <i class="material-icons">library_books </i>
               <p>Inventario</p>
             </a>
