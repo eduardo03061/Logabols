@@ -61,7 +61,7 @@
                     <div class="alert alert-danger">{{ session('mensaje') }}</div>
                 @endif
             @endif
-            <form action="{{ route('pedidos.storage') }}" method="POST">
+            <form action="{{ route('inventory.storage') }}" method="POST">
                 @csrf
                 <div class="p-4" style="background:#f5f5f5;  margin-bottom:1em; padding-top:1em; padding-bottom:1em;"
                      id="vuecronicos">
@@ -80,26 +80,31 @@
                         <table v-if="cronicos > 0" class="table mx-auto">
                             <thead class="thead-dark">
                             <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">N-Bultos</th>
+                                <th>KG</th>
                                 <th scope="col">Tipo</th>
-                                <th scope="col">Medida</th>
-                                <th>Cantidad</th>
-                                <th scope="col">Nota</th>
+                                <th scope="col">Unidades</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="cronico in cronicos">
-                                <td><input type="text" class="form-control" name="Tipo[]" id="exampleInputEmail1"
+                                <td><input type="text" class="form-control" name="Nombre[]" id="Nombre"
                                            placeholder="" required></td>
-                                <td><input type="text" class="form-control" name="Medida[]" id="exampleInputEmail1"
+                                <td><input type="number" class="form-control" name="NBultos[]" id="exampleInputEmail1"
                                            placeholder="" required></td>
-                                <td><input type="number" class="form-control" name="Cantidad[]" id="exampleInputEmail1"
+                                <td><input type="number" class="form-control" name="KG[]" id="KG"
+                                           placeholder="" step="0.01" required></td>
+                                <td><input type="text" class="form-control" name="Tipo[]" id="Tipo"
                                            placeholder="" required></td>
-                                <td><input type="text" class="form-control" name="Nota[]" id="exampleInputEmail1"
+                                <td><input type="number" class="form-control" name="Unidades[]" id="Unidades"
                                            placeholder="" required></td>
                             </tr>
                             </tbody>
                         </table>
 
+                        <input type="text" name="user_id" id="user_id"
+                               @isset( auth()->user()->id) value="{{ auth()->user()->id}}" @endisset hidden>
                         <button type="submit" v-if="cronicos > 0" class="btn btn-success mx-auto">Guardar</button>
                     </div>
                 </div>
@@ -118,7 +123,7 @@
 
 
         function reload() {
-            window.location.href = "{{ route('pedidos.list') }}";
+            window.location.href = "{{ route('inventory.list') }}";
         }
 
         @if(session('mensaje'))
