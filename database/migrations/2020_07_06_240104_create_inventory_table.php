@@ -20,6 +20,7 @@ class CreateInventoryTable extends Migration
             $table->decimal('kg', 8, 2);
             $table->string('type');
             $table->bigInteger('id_user')->unsigned();
+            $table->bigInteger('unidades')->unsigned();
             $table->foreign('id_user')->references('id')->on('users')->onDelete("cascade");
             $table->timestamps();
 
