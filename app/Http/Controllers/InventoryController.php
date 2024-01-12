@@ -34,9 +34,9 @@ class InventoryController extends Controller
 
     public function show($id)
     {
-        $nomina = RegistrosPedidos::where('id_pedido', '=', $id)->get();
+        $item = Inventory::where('id', '=', $id)->first();
 
-        return view('Pedidos.details', compact('nomina'));
+        return view('Inventory.details', compact('item'));
     }
 
     public function storage(Request $request)
