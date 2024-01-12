@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\InventoryController;
-
+use App\Http\Controllers\SalesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,15 +42,13 @@ Route::get('/Inventory/Details/{id}', [InventoryController::class, 'show'])->nam
 Route::get('/Inventory/Edit/{id}', [InventoryController::class, 'edit'])->name('inventory.edit');
 Route::get('/Inventory/Delete/{id}', [InventoryController::class, 'delete'])->name('inventory.delete');
 
+
+Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
+
+
 Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
-
-
 Route::get('/Nomina/Registro_Nuevo', [NominaController::class, 'create'])->name('nomina.create');
-
-
 Route::post('/Nomina/Registro_Nuevo', [NominaController::class, 'storage'])->name('nomina.storage');
-
-
 Route::get('/Nomina/Detalles/{id}', [NominaController::class, 'show'])->name('nomina.showdetails');
 
 
