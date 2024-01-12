@@ -17,7 +17,7 @@ class Inventory extends Authenticatable
     protected $table = 'inventory';
 
     protected $fillable = [
-        'id','name', 'id_user', 'bulks', 'kg', 'type','date'
+        'id','name', 'id_user', 'bulks','unidades', 'kg', 'type','date'
     ];
 
 
