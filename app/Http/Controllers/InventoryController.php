@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 use App\Models\Inventory;
 use App\Models\User;
+use Auth;
+
 class InventoryController extends Controller
 {
 
@@ -17,35 +19,19 @@ class InventoryController extends Controller
 
     public function index()
     {
-        $inventory = Inventory::all()->toArray();
-        $cantidad = 0;
+        $user_id = Auth::user()->id;
 
-        //dd(gettype($solicitudes));
-
-        $results = array_map(function ($element) {
-            //dd($element['id']);
-            $registros = Inventory::where('id_pedido', '=', $element['id'])->get();
-            $total = 0;
-            for ($i = 0; $i < sizeof($registros); $i++) {
-                $total += $registros[$i]->cantidad;
-            }
-
-            $nomina = new \stdClass();
-            $nomina->id = $element['id'];
-            $nomina->fecha = $element['fecha'];
-            $nomina->total = $total;
-            return $nomina;
-        }, $inventory);
+        $inventory = Inventory::where('id_user',$user_id)->get();
 
 
-        $solicitudes = $results;
-        return view('Inventory.list', compact('solicitudes', 'cantidad'));
+        return view('Inventory.list', compact('inventory'));
     }
 
     public function create()
     {
         return view('Inventory.create');
     }
+
     public function show($id)
     {
         $nomina = RegistrosPedidos::where('id_pedido', '=', $id)->get();
