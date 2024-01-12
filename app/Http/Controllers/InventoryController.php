@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Models\Inventory;
-
+use App\Models\User;
 class InventoryController extends Controller
 {
 
@@ -24,7 +24,7 @@ class InventoryController extends Controller
 
         $results = array_map(function ($element) {
             //dd($element['id']);
-            $registros = RegistrosPedidos::where('id_pedido', '=', $element['id'])->get();
+            $registros = Inventory::where('id_pedido', '=', $element['id'])->get();
             $total = 0;
             for ($i = 0; $i < sizeof($registros); $i++) {
                 $total += $registros[$i]->cantidad;
@@ -46,7 +46,6 @@ class InventoryController extends Controller
     {
         return view('Inventory.create');
     }
-
     public function show($id)
     {
         $nomina = RegistrosPedidos::where('id_pedido', '=', $id)->get();
@@ -57,32 +56,36 @@ class InventoryController extends Controller
     public function storage(Request $request)
     {
         try {
-            $dt = Carbon::now()->toDateTimeString();
-            $pedido = new Pedidos();
-            $pedido->fecha = $dt;
-            $pedido->save();
+            if ($request->user()) {
+                $arrayNombre = $request->get('Nombre');
+                $arrayNBultos = $request->get('NBultos');
+                $arrayKG = $request->get('KG');
+                $arrayTipo = $request->get('Tipo');
+                $arrayUnidades = $request->get('Unidades');
 
-            $arrayTipo = $request->get('Tipo');
-            $arrayMedida = $request->get('Medida');
-            $arrayCantidad = $request->get('Cantidad');
-            $arrayNota = $request->get('Nota');
+                $user = User::findOrFail($request->get('user_id'));
+                for ($id = 0; $id < sizeof($arrayTipo); $id++) {
 
-            for ($id = 0; $id < sizeof($arrayTipo); $id++) {
+                    $registros = new Inventory();
 
-                $registros = new RegistrosPedidos();
-                $registros->tipo = $arrayTipo[$id];
-                $registros->medida = $arrayMedida[$id];
-                $registros->cantidad = $arrayCantidad[$id];
-                $registros->nota = $arrayNota[$id];
+                    $registros->name = $arrayNombre[$id];
+                    $registros->bulks = $arrayNBultos[$id];
+                    $registros->kg = $arrayKG[$id];
+                    $registros->type = $arrayTipo[$id];
+                    $registros->unidades = $arrayUnidades[$id];
+                    $registros->id_user = $user->id;
 
-                $registros->id_pedido = $pedido->id;
-
-
-                $registros->save();
+                    $registros->save();
+                }
+                $mensaje = "Correctamente creado";
+                return back()->with('mensaje', $mensaje);
+            } else {
+                return view('welcome');
             }
-            $mensaje = "Correctamente creado";
-            return back()->with('mensaje', $mensaje);
+
+
         } catch (\Exception $e) {
+            dd($e);
             $mensaje = "error al crear solicitud";
             return back()->with('mensaje', $mensaje);
         }
