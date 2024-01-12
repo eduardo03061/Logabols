@@ -21,7 +21,7 @@ class InventoryController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        $inventory = Inventory::where('id_user',$user_id)->get();
+        $inventory = Inventory::where('id_user', $user_id)->get();
 
 
         return view('Inventory.list', compact('inventory'));
