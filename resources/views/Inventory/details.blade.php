@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="javascript:;">Pedidos</a>
+                <a class="navbar-brand" href="javascript:;">Articulo</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -57,29 +57,68 @@
 
     <div class="content">
         <div class="container-fluid">
-            <form action="{{ route('pedidos.storage') }}" method="POST">
+            <form action="{{ route('inventory.storage') }}" method="POST">
                 @csrf
                 <div class="p-4" style="background:#f5f5f5;  margin-bottom:1em; padding-top:1em; padding-bottom:1em;">
-                    <h3>Pedido de:</h3>
+                    <h3>Articulo</h3>
                     <div class="row col-12">
                         <table class="table mx-auto">
                             <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Medida</th>
-                                <th>Cantidad</th>
-                                <th scope="col">Nota</th>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    N-Bultos
+                                </th>
+                                <th>
+                                    KG
+                                </th>
+                                <th>
+                                    Tipo
+                                </th>
+                                <th>
+                                    Unidades
+                                </th>
+                                <th>
+                                    Acciones
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($nomina as $nm)
-                                <tr v-for="cronico in cronicos">
-                                    <td>{{$nm->tipo}}</td>
-                                    <td>{{$nm->medida}}</td>
-                                    <td>{{$nm->cantidad}}</td>
-                                    <td>{{$nm->nota}}</td>
-                                </tr>
-                            @endforeach
+                            <tr>
+                                <td>
+                                    <a href="{{ route('inventory.showdetails', $item->id)  }}">{{$item->name}}</a>
+                                </td>
+                                <td>
+                                    {{$item->bulks}}
+                                </td>
+                                <td class="text-secondary">
+                                    {{$item->kg}}
+                                </td>
+                                <td class="text-secondary">
+                                    {{$item->type}}
+                                </td>
+                                <td class="text-secondary">
+                                    {{$item->unidades}}
+                                </td>
+                                <td>
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-success"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <img src="{{ asset('assets/images/engranaje.svg')}}" alt=""
+                                             width="20px">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <a class="dropdown-item"
+                                           href="{{route('inventory.edit',$item->id)}}">Editar Articulo</a>
+                                        <form action="{{route('inventory.delete',$item)}}" method="POST">
+                                            @csrf
+                                            <input class="dropdown-item" type="submit" value="Eliminar">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 
