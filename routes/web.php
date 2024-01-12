@@ -39,7 +39,7 @@ Route::get('/Inventory', [InventoryController::class, 'index'])->name('inventory
 Route::get('/Inventory/New_Inventory', [InventoryController::class, 'create'])->name('inventory.create');
 Route::post('/Inventory/New_Inventory', [InventoryController::class, 'storage'])->name('inventory.storage');
 Route::get('/Inventory/Details/{id}', [InventoryController::class, 'show'])->name('inventory.showdetails');
-
+Route::get('/Inventory/Delete/{id}', [InventoryController::class, 'delete'])->name('inventory.delete');
 
 Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
 
