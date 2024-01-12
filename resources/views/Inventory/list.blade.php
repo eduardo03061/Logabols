@@ -137,7 +137,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                     <a class="dropdown-item"
-                                                       href="{{ route('inventory.showdetails',$item->id)}}">Ver</a>
+                                                       href="{{route('inventory.edit',$item->id)}}">Editar Articulo</a>
                                                     <form action="{{route('inventory.delete',$item)}}" method="POST">
                                                         @csrf
                                                         <input class="dropdown-item" type="submit" value="Eliminar">
