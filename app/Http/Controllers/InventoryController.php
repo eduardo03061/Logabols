@@ -39,12 +39,12 @@ class InventoryController extends Controller
 
 
         $solicitudes = $results;
-        return view('Pedidos.list', compact('solicitudes', 'cantidad'));
+        return view('Inventory.list', compact('solicitudes', 'cantidad'));
     }
 
     public function create()
     {
-        return view('Pedidos.create');
+        return view('Inventory.create');
     }
 
     public function show($id)
