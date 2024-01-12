@@ -103,17 +103,17 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach($solicitudes as $solicitud => $data)
+                                    @foreach($inventory as $item)
+
                                         <tr>
                                             <td>
-                                                <a href="{{ route('pedidos.showdetails', $data->id)  }}">{{$data->id}}</a>
+                                                <a href="{{ route('pedidos.showdetails', $item->id)  }}">{{$item->id}}</a>
                                             </td>
                                             <td>
-                                                {{$data->fecha}}
+                                                {{$item->name}}
                                             </td>
-
                                             <td class="text-primary">
-                                                {{$data->total}}
+                                                {{$item->kg}}
                                             </td>
                                         </tr>
                                     @endforeach
