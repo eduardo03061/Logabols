@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\InventoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,21 +29,16 @@ Route::get('/Contacto', function () {
 });
 
 
-
-
-
 Route::get('/Pedidos', [PedidosController::class, 'index'])->name('pedidos.list');
 Route::get('/Pedidos/Registro_Nuevo', [PedidosController::class, 'create'])->name('pedidos.create');
 Route::post('/Pedidos/Registro_Nuevo', [PedidosController::class, 'storage'])->name('pedidos.storage');
 Route::get('/Pedidos/Detalles/{id}', [PedidosController::class, 'show'])->name('pedidos.showdetails');
 
 
-
 Route::get('/Inventory', [InventoryController::class, 'index'])->name('inventory.list');
 Route::get('/Inventory/New_Inventory', [InventoryController::class, 'create'])->name('inventory.create');
 Route::post('/Inventory/New_Inventory', [InventoryController::class, 'storage'])->name('inventory.storage');
 Route::get('/Inventory/Details/{id}', [InventoryController::class, 'show'])->name('inventory.showdetails');
-
 
 
 Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
@@ -52,8 +48,6 @@ Route::get('/Nomina/Registro_Nuevo', [NominaController::class, 'create'])->name(
 
 
 Route::post('/Nomina/Registro_Nuevo', [NominaController::class, 'storage'])->name('nomina.storage');
-
-
 
 
 Route::get('/Nomina/Detalles/{id}', [NominaController::class, 'show'])->name('nomina.showdetails');
