@@ -89,31 +89,60 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
-                                    <thead class=" text-primary">
+                                    <thead class="text-secondary">
                                     <th>
-                                        Num
+                                        Nombre
                                     </th>
                                     <th>
-                                        Fecha
+                                        N-Bultos
                                     </th>
                                     <th>
-                                        Cantidad
+                                        KG
                                     </th>
-
+                                    <th>
+                                        Tipo
+                                    </th>
+                                    <th>
+                                        Unidades
+                                    </th>
+                                    <th>
+                                        Acciones
+                                    </th>
                                     </thead>
                                     <tbody>
 
                                     @foreach($inventory as $item)
-
                                         <tr>
                                             <td>
-                                                <a href="{{ route('pedidos.showdetails', $item->id)  }}">{{$item->id}}</a>
+                                                <a href="{{ route('inventory.showdetails', $item->id)  }}">{{$item->name}}</a>
                                             </td>
                                             <td>
-                                                {{$item->name}}
+                                                {{$item->bulks}}
                                             </td>
-                                            <td class="text-primary">
+                                            <td class="text-secondary">
                                                 {{$item->kg}}
+                                            </td>
+                                            <td class="text-secondary">
+                                                {{$item->type}}
+                                            </td>
+                                            <td class="text-secondary">
+                                                {{$item->unidades}}
+                                            </td>
+                                            <td>
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-success"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    <img src="{{ asset('assets/images/engranaje.svg')}}" alt=""
+                                                         width="20px">
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                    <a class="dropdown-item"
+                                                       href="{{ route('inventory.showdetails',$item->id)}}">Ver</a>
+                                                    <form action="{{route('inventory.delete',$item)}}" method="POST">
+                                                        @csrf
+                                                        <input class="dropdown-item" type="submit" value="Eliminar">
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
