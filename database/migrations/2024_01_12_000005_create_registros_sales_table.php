@@ -20,6 +20,8 @@ class CreateRegistrosSalesTable extends Migration
 
             $table->string('name');
             $table->bigInteger('bulks');
+            $table->bigInteger('unidades');
+
             $table->decimal('kg', 8, 2);
 
             $table->bigInteger('id_item')->unsigned();
