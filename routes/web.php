@@ -44,6 +44,9 @@ Route::get('/Inventory/Delete/{id}', [InventoryController::class, 'delete'])->na
 
 
 Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
+Route::get('/Sales/new-sale', [SalesController::class, 'create'])->name('sales.create');
+Route::post('/Sales/new-sale', [SalesController::class, 'storage'])->name('sales.storage');
+Route::get('/Sales/list', [SalesController::class, 'list'])->name('sales.list');
 
 
 Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
