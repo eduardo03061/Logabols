@@ -21,6 +21,8 @@ class CreateInventoryTable extends Migration
             $table->string('type');
             $table->bigInteger('id_user')->unsigned();
             $table->bigInteger('unidades')->unsigned();
+            $table->decimal('priceCompra', 8, 2);
+            $table->decimal('priceSale', 8, 2);
             $table->foreign('id_user')->references('id')->on('users')->onDelete("cascade");
             $table->timestamps();
 
