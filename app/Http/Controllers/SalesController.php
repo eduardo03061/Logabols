@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 
 use App\Models\Sales;
+use App\Models\RegistrosSales;
+use App\Models\CompanyUser;
 use App\Models\Inventory;
 use App\Models\User;
 use Auth;
@@ -22,9 +24,9 @@ class SalesController extends Controller
     {
 
 
-
         return view('Sales.index');
     }
+
     public function list()
     {
         $user_id = Auth::user()->id;
@@ -53,25 +55,47 @@ class SalesController extends Controller
     {
         try {
             if ($request->user()) {
-                dd( $arrayNombre = $request->get('Tipo'));
-                $arrayNombre = $request->get('Nombre');
-                $arrayNBultos = $request->get('NBultos');
-                $arrayKG = $request->get('KG');
-                $arrayTipo = $request->get('Tipo');
+                $user_id = Auth::user()->id;
+                $company_id = CompanyUser::where('user_id','=',$user_id)->first();
+
                 $arrayUnidades = $request->get('Unidades');
 
-                $user = User::findOrFail($request->get('user_id'));
-                for ($id = 0; $id < sizeof($arrayTipo); $id++) {
+                $unitsTotal = 0;
+                for ($i = 0; $i < sizeof($arrayUnidades); $i++){
+                    $unitsTotal += $arrayUnidades[$i];
+                }
 
-                    $registros = new Inventory();
+
+                $sales = new Sales();
+                $sales->payment_method = 'efectivo';
+                $sales->quantity = $unitsTotal;
+                $sales->user_id = $user_id;
+                $sales->company_id = $company_id->id;
+                $sales->save();
+
+
+
+                dd($request->get('Nombre'));
+                $id_item = $request->get('Nombre')[1];
+                $arrayNombre = $request->get('Nombre')[0];
+                $arrayNBultos = $request->get('NBultos');
+                $arrayKG = $request->get('KG');
+
+
+                for ($id = 0; $id < sizeof($arrayKG); $id++) {
+                    dd($id_item[$id]);
+                    $item = Inventory::where('id','=',$id_item[$id])->first();
+
+                    $registros = new RegistrosSales();
 
                     $registros->name = $arrayNombre[$id];
                     $registros->bulks = $arrayNBultos[$id];
                     $registros->kg = $arrayKG[$id];
-                    $registros->type = $arrayTipo[$id];
-                    $registros->unidades = $arrayUnidades[$id];
-                    $registros->id_user = $user->id;
 
+                    $registros->unidades = $arrayUnidades[$id];
+                    $registros->id_sales = $sales->id;
+                    $registros->id_item = $id_item[$id];
+                    $registros->price = $item->priceSale;
                     $registros->save();
                 }
                 $mensaje = "Correctamente creado";
