@@ -83,26 +83,24 @@
                                 <th scope="col">Nombre</th>
                                 <th scope="col">N-Bultos</th>
                                 <th>KG</th>
-                                <th scope="col">Tipo</th>
                                 <th scope="col">Unidades</th>
-                                <th scope="col">Precio compra</th>
-                                <th scope="col">Precio Venta</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="cronico in cronicos">
-                                <td><input class="form-control" name="Tipo[]" id="nombresInput"
+                                <td><input class="form-control" name="Nombre[]" id="nombresInput"
                                            list="nombres" required></td>
-                                <td><input type="text" class="form-control" name="Medida[]" id="exampleInputEmail1"
+                                <td><input type="text" class="form-control" name="NBultos[]" id="NBultos"
                                            placeholder="" required></td>
-                                <td><input type="number" class="form-control" name="Cantidad[]" id="exampleInputEmail1"
+                                <td><input type="number" class="form-control" name="KG[]" id="KG"
+                                           placeholder="" step="0.01" required></td>
+                                <td><input type="text" class="form-control" name="Unidades[]" id="unidades"
                                            placeholder="" required></td>
-                                <td><input type="text" class="form-control" name="Nota[]" id="exampleInputEmail1"
-                                           placeholder="" required></td>
+                                <input type="hidden" name="Nombre[]" id="nombresInput-hidden">
                             </tr>
                             </tbody>
                         </table>
-                        <input type="hidden" name="Tipo[]" id="nombresInput-hidden">
+
 
                         <datalist id="nombres">
                             @foreach($items as $item)
