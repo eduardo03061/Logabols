@@ -85,6 +85,8 @@
                                 <th>KG</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Unidades</th>
+                                <th scope="col">Precio compra</th>
+                                <th scope="col">Precio Venta</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -99,6 +101,10 @@
                                            placeholder="" required></td>
                                 <td><input type="number" class="form-control" name="Unidades[]" id="Unidades"
                                            placeholder="" required></td>
+                                <td><input type="number" class="form-control" name="priceCompra[]" id="Price1"
+                                           placeholder="" step="0.01" required></td>
+                                <td><input type="number" class="form-control" name="priceSale[]" id="Price2"
+                                           placeholder="" step="0.01" required></td>
                             </tr>
                             </tbody>
                         </table>
