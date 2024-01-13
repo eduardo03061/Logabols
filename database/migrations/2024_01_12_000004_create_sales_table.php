@@ -19,11 +19,9 @@ class CreateSalesTable extends Migration
             $table->decimal('quantity', 8, 2);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
-
             $table->bigInteger('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete("cascade");
             $table->timestamps();
-
         });
     }
 
