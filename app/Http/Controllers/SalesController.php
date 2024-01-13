@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 
 use App\Models\Sales;
+use App\Models\Inventory;
 use App\Models\User;
 use Auth;
 
@@ -36,7 +37,9 @@ class SalesController extends Controller
 
     public function create()
     {
-        return view('Inventory.create');
+        $items = Inventory::all();
+
+        return view('Sales.create', compact('items'));
     }
 
     public function show($id)
@@ -50,6 +53,7 @@ class SalesController extends Controller
     {
         try {
             if ($request->user()) {
+                dd( $arrayNombre = $request->get('Tipo'));
                 $arrayNombre = $request->get('Nombre');
                 $arrayNBultos = $request->get('NBultos');
                 $arrayKG = $request->get('KG');
