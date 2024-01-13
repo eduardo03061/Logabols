@@ -61,7 +61,7 @@
                     <div class="alert alert-danger">{{ session('mensaje') }}</div>
                 @endif
             @endif
-            <form action="{{ route('pedidos.storage') }}" method="POST">
+            <form action="{{ route('sales.storage') }}" method="POST">
                 @csrf
                 <div class="p-4" style="background:#f5f5f5;  margin-bottom:1em; padding-top:1em; padding-bottom:1em;"
                      id="vuecronicos">
@@ -72,7 +72,7 @@
                         <button type="button" class="btn btn-danger" v-on:click="if (cronicos != 0)cronicos -= 1">-
                         </button>
                     </div>
-                    <h3>Nuevo Pedido</h3>
+                    <h3>Registrar Venta</h3>
                     <div class="row col-12">
                         <div v-if="cronicos == 0" class="col-md-12">
                             <h3><small>Agrega un registro</small></h3>
@@ -80,16 +80,19 @@
                         <table v-if="cronicos > 0" class="table mx-auto">
                             <thead class="thead-dark">
                             <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">N-Bultos</th>
+                                <th>KG</th>
                                 <th scope="col">Tipo</th>
-                                <th scope="col">Medida</th>
-                                <th>Cantidad</th>
-                                <th scope="col">Nota</th>
+                                <th scope="col">Unidades</th>
+                                <th scope="col">Precio compra</th>
+                                <th scope="col">Precio Venta</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="cronico in cronicos">
-                                <td><input type="text" class="form-control" name="Tipo[]" id="exampleInputEmail1"
-                                           placeholder="" required></td>
+                                <td><input class="form-control" name="Tipo[]" id="nombresInput"
+                                           list="nombres" required></td>
                                 <td><input type="text" class="form-control" name="Medida[]" id="exampleInputEmail1"
                                            placeholder="" required></td>
                                 <td><input type="number" class="form-control" name="Cantidad[]" id="exampleInputEmail1"
@@ -99,7 +102,13 @@
                             </tr>
                             </tbody>
                         </table>
+                        <input type="hidden" name="Tipo[]" id="nombresInput-hidden">
 
+                        <datalist id="nombres">
+                            @foreach($items as $item)
+                                <option data-value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </datalist>
                         <button type="submit" v-if="cronicos > 0" class="btn btn-success mx-auto">Guardar</button>
                     </div>
                 </div>
@@ -112,10 +121,9 @@
         var app = new Vue({
             el: '#vuecronicos',
             data: {
-                cronicos: 0
+                cronicos: 1
             }
         })
-
 
         function reload() {
             window.location.href = "{{ route('pedidos.list') }}";
@@ -127,5 +135,23 @@
         @endif
 
         @endif
+        document.querySelector('input[list]').addEventListener('input', function(e) {
+            var input = e.target,
+                list = input.getAttribute('list'),
+                options = document.querySelectorAll('#' + list + ' option'),
+                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                inputValue = input.value;
+
+            hiddenInput.value = inputValue;
+
+            for(var i = 0; i < options.length; i++) {
+                var option = options[i];
+
+                if(option.innerText === inputValue) {
+                    hiddenInput.value = option.getAttribute('data-value');
+                    break;
+                }
+            }
+        });
     </script>
 @endsection
