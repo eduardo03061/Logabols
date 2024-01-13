@@ -81,8 +81,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mt-5">
-                        <a href="{{ route('pedidos.create') }}" class="btn btn-success ">Hacer una venta</a><br><br>
-                        <a href="{{ route('pedidos.create') }}" class="btn btn-success ">Ver ventas</a><br><br>
+                        <a href="{{ route('sales.create') }}" class="btn btn-success ">Hacer una venta</a><br><br>
+                        <a href="{{ route('sales.list') }}" class="btn btn-success ">Ver ventas</a><br><br>
                     </div>
 
                 </div>
