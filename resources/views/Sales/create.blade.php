@@ -96,7 +96,7 @@
                                            placeholder="" step="0.01" required></td>
                                 <td><input type="text" class="form-control" name="Unidades[]" id="unidades"
                                            placeholder="" required></td>
-                                <input type="hidden" name="Nombre[]" id="nombresInput-hidden">
+
                             </tr>
                             </tbody>
                         </table>
@@ -104,7 +104,7 @@
 
                         <datalist id="nombres">
                             @foreach($items as $item)
-                                <option data-value="{{$item->id}}">{{$item->name}}</option>
+                                <option value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach
                         </datalist>
                         <button type="submit" v-if="cronicos > 0" class="btn btn-success mx-auto">Guardar</button>
@@ -133,23 +133,6 @@
         @endif
 
         @endif
-        document.querySelector('input[list]').addEventListener('input', function(e) {
-            var input = e.target,
-                list = input.getAttribute('list'),
-                options = document.querySelectorAll('#' + list + ' option'),
-                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
-                inputValue = input.value;
 
-            hiddenInput.value = inputValue;
-
-            for(var i = 0; i < options.length; i++) {
-                var option = options[i];
-
-                if(option.innerText === inputValue) {
-                    hiddenInput.value = option.getAttribute('data-value');
-                    break;
-                }
-            }
-        });
     </script>
 @endsection
