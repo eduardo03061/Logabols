@@ -47,7 +47,8 @@ class InventoryController extends Controller
                 $arrayKG = $request->get('KG');
                 $arrayTipo = $request->get('Tipo');
                 $arrayUnidades = $request->get('Unidades');
-
+                $arrayPriceCompra = $request->get('priceCompra');
+                $arrayPriceSale = $request->get('priceSale');
                 $user = User::findOrFail($request->get('user_id'));
                 for ($id = 0; $id < sizeof($arrayTipo); $id++) {
 
@@ -59,6 +60,8 @@ class InventoryController extends Controller
                     $registros->type = $arrayTipo[$id];
                     $registros->unidades = $arrayUnidades[$id];
                     $registros->id_user = $user->id;
+                    $registros->priceCompra = $arrayPriceCompra[$id];
+                    $registros->priceSale = $arrayPriceSale[$id];
 
                     $registros->save();
                 }
