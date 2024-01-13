@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Auth;
 
 use App\Models\Pedidos;
 use App\Models\RegistrosPedidos;
@@ -21,7 +22,7 @@ class PedidosController extends Controller
         $solicitudes =  Pedidos::all()->toArray();
         $cantidad = 0;
 
-        //dd(gettype($solicitudes)); 
+        //dd(gettype($solicitudes));
 
         $results = array_map(function ($element) {
             //dd($element['id']);
@@ -59,9 +60,12 @@ class PedidosController extends Controller
     {
         try {
             $dt = Carbon::now()->toDateTimeString();
+            $user_id = Auth::user()->id;
             $pedido = new Pedidos();
+            $pedido->id_user = $user_id;
             $pedido->fecha = $dt;
             $pedido->save();
+
 
             $arrayTipo = $request->get('Tipo');
             $arrayMedida = $request->get('Medida');
@@ -84,6 +88,7 @@ class PedidosController extends Controller
             $mensaje = "Correctamente creado";
             return back()->with('mensaje', $mensaje);
         } catch (\Exception $e) {
+            dd($e);
             $mensaje = "error al crear solicitud";
             return back()->with('mensaje', $mensaje);
         }
