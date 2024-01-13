@@ -17,7 +17,7 @@ class Sales extends Authenticatable
     protected $table = 'sales';
 
     protected $fillable = [
-        'id','name', 'id_user', 'bulks','unidades', 'kg', 'type','date'
+        'id','payment_method', 'id_user', 'quantity','company_id'
     ];
 
 
