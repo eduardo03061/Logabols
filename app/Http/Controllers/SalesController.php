@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 
-use App\Models\Inventory;
+use App\Models\Sales;
 use App\Models\User;
 use Auth;
 
@@ -19,12 +19,19 @@ class SalesController extends Controller
 
     public function index()
     {
+
+
+
+        return view('Sales.index');
+    }
+    public function list()
+    {
         $user_id = Auth::user()->id;
 
-        $inventory = Inventory::where('id_user', $user_id)->get();
+        $inventory = Sales::all()->get();
 
 
-        return view('Sales.index', compact('inventory'));
+        return view('Sales.list', compact('inventory'));
     }
 
     public function create()
