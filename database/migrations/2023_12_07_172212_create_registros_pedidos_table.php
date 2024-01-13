@@ -19,9 +19,9 @@ class CreateRegistrosPedidosTable extends Migration
 
             $table->foreign('id_pedido')->references('id')->on('pedidos')->onDelete("cascade");
 
-            $table->string('tipo'); 
+            $table->string('tipo');
             $table->string('medida');
-            $table->bigInteger('cantidad');  
+            $table->bigInteger('cantidad');
             $table->string('nota');
             $table->timestamps();
         });
