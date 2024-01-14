@@ -124,7 +124,7 @@
         })
 
         function reload() {
-            window.location.href = "{{ route('pedidos.list') }}";
+            window.location.href = "{{ route('sales.list') }}";
         }
 
         @if(session('mensaje'))
