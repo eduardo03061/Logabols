@@ -30,11 +30,12 @@ class SalesController extends Controller
     public function list()
     {
         $user_id = Auth::user()->id;
+        $company = CompanyUser::where('user_id','=',$user_id)->first();
 
-        $inventory = Sales::all()->get();
+        $sales = Sales::where('company_id','=',$company->id)->get();
 
 
-        return view('Sales.list', compact('inventory'));
+        return view('Sales.list', compact('sales'));
     }
 
     public function create()
