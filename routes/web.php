@@ -47,6 +47,8 @@ Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
 Route::get('/Sales/new-sale', [SalesController::class, 'create'])->name('sales.create');
 Route::post('/Sales/new-sale', [SalesController::class, 'storage'])->name('sales.storage');
 Route::get('/Sales/list', [SalesController::class, 'list'])->name('sales.list');
+Route::get('/Sales/Details/{id}', [SalesController::class, 'show'])->name('sales.showdetails');
+Route::get('/Sales/Print/{id}', [SalesController::class, 'print'])->name('sales.print');
 
 
 Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
