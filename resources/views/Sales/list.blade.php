@@ -6,7 +6,8 @@
             <div class="navbar-wrapper">
                 <a class="navbar-brand" href="javascript:;">Ventas</a>
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon icon-bar"></span>
                 <span class="navbar-toggler-icon icon-bar"></span>
@@ -32,7 +33,8 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons">notifications</i>
                             <span class="notification">5</span>
                             <p class="d-lg-none d-md-block">
@@ -48,7 +50,8 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons">person</i>
                             <p class="d-lg-none d-md-block">
                                 Account
@@ -80,8 +83,8 @@
                     <a href="{{ route('pedidos.create') }}" class="btn btn-success float-right">Agregar</a><br><br>
                     <div class="card">
                         <div class="card-header card-header-success">
-                            <h4 class="card-title ">Pedidos</h4>
-                            <p class="card-category"> Lista de Nominas</p>
+                            <h4 class="card-title ">Ventas</h4>
+                            <p class="card-category"> Lista de Ventas</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -96,21 +99,26 @@
                                     <th>
                                         Cantidad
                                     </th>
-
+                                    <th>
+                                        Fecha
+                                    </th>
                                     </thead>
                                     <tbody>
 
-                                    @foreach($solicitudes as $solicitud => $data)
+                                    @foreach($sales as $sale)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('pedidos.showdetails', $data->id)  }}">{{$data->id}}</a>
+                                                <a href="{{ route('pedidos.showdetails', $sale->id)  }}">{{$sale->id}}</a>
                                             </td>
                                             <td>
-                                                {{$data->fecha}}
+                                                {{$sale->payment_method}}
                                             </td>
 
                                             <td class="text-primary">
-                                                {{$data->total}}
+                                                {{$sale->quantity}}
+                                            </td>
+                                            <td class="text-primary">
+                                                {{$sale->created_at}}
                                             </td>
                                         </tr>
                                     @endforeach
