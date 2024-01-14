@@ -32,4 +32,13 @@
 
         </tbody>
     </table>
+
+    <script>
+
+        function imprimir(){
+            window.print();
+        }
+
+        imprimir()
+    </script>
 @endsection
