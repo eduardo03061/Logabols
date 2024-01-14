@@ -30,9 +30,9 @@ class SalesController extends Controller
     public function list()
     {
         $user_id = Auth::user()->id;
-        $company = CompanyUser::where('user_id','=',$user_id)->first();
+        $company = CompanyUser::where('user_id', '=', $user_id)->first();
 
-        $sales = Sales::where('company_id','=',$company->id)->get();
+        $sales = Sales::where('company_id', '=', $company->id)->get();
 
 
         return view('Sales.list', compact('sales'));
@@ -57,39 +57,32 @@ class SalesController extends Controller
         try {
             if ($request->user()) {
                 $user_id = Auth::user()->id;
-                $company_id = CompanyUser::where('user_id','=',$user_id)->first();
+                $company_id = CompanyUser::where('user_id', '=', $user_id)->first();
 
                 $arrayUnidades = $request->get('Unidades');
-
-                $unitsTotal = 0;
-                for ($i = 0; $i < sizeof($arrayUnidades); $i++){
-                    $unitsTotal += $arrayUnidades[$i];
-                }
 
 
                 $sales = new Sales();
                 $sales->payment_method = 'efectivo';
-                $sales->quantity = $unitsTotal;
+                $sales->quantity = 0.0;
                 $sales->user_id = $user_id;
                 $sales->company_id = $company_id->id;
                 $sales->save();
 
 
+                $id_item = $request->get('Nombre');
 
-                dd($request->get('Nombre'));
-                $id_item = $request->get('Nombre')[1];
-                $arrayNombre = $request->get('Nombre')[0];
                 $arrayNBultos = $request->get('NBultos');
                 $arrayKG = $request->get('KG');
 
-
+                $totalSales = 0;
                 for ($id = 0; $id < sizeof($arrayKG); $id++) {
-                    dd($id_item[$id]);
-                    $item = Inventory::where('id','=',$id_item[$id])->first();
+
+                    $item = Inventory::where('id', '=', $id_item[$id])->first();
 
                     $registros = new RegistrosSales();
 
-                    $registros->name = $arrayNombre[$id];
+                    $registros->name = $item->name;
                     $registros->bulks = $arrayNBultos[$id];
                     $registros->kg = $arrayKG[$id];
 
@@ -97,8 +90,29 @@ class SalesController extends Controller
                     $registros->id_sales = $sales->id;
                     $registros->id_item = $id_item[$id];
                     $registros->price = $item->priceSale;
+                    $totalSales += $item->priceSale * $arrayKG[$id];
                     $registros->save();
+
+                    //Restar el inventario de la venta
+                    $updateInventory = Inventory::findOrFail($id_item[$id]);
+                    $newBulks = $item->bulks - $arrayNBultos[$id];
+                    $updateInventory->bulks = $newBulks;
+
+                    $newKG = $item->kg - $arrayKG[$id];
+                    $updateInventory->kg = $newKG;
+
+                    $newUnidades = $item->unidades - $arrayUnidades[$id];
+                    $updateInventory->unidades = $newUnidades;
+
+
+                    $updateInventory->update();
                 }
+
+                $updateSales = Sales::findOrFail($sales->id);
+                $updateSales->quantity = $totalSales;
+                $updateSales->update();
+
+
                 $mensaje = "Correctamente creado";
                 return back()->with('mensaje', $mensaje);
             } else {
