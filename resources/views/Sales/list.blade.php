@@ -108,7 +108,7 @@
                                     @foreach($sales as $sale)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('pedidos.showdetails', $sale->id)  }}">{{$sale->id}}</a>
+                                                <a href="{{ route('sales.showdetails', $sale->id)  }}">{{$sale->id}}</a>
                                             </td>
                                             <td>
                                                 {{$sale->payment_method}}
