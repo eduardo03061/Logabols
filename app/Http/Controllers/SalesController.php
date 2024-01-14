@@ -32,7 +32,7 @@ class SalesController extends Controller
         $user_id = Auth::user()->id;
         $company = CompanyUser::where('user_id', '=', $user_id)->first();
 
-        $sales = Sales::where('company_id', '=', $company->id)->get();
+        $sales = Sales::where('company_id', '=', $company->id)->orderBy('id', 'DESC')->get();
 
 
         return view('Sales.list', compact('sales'));
@@ -45,11 +45,20 @@ class SalesController extends Controller
         return view('Sales.create', compact('items'));
     }
 
+
+    public function print($id)
+    {
+        $sales = Sales::where('id','=',$id)->first();
+        $items = RegistrosSales::where('id_sales', '=', $id)->get();
+
+        return view('Sales.print', compact('items','sales'));
+    }
+
     public function show($id)
     {
-        $item = Inventory::where('id', '=', $id)->first();
+        $sales = RegistrosSales::where('id_sales', '=', $id)->get();
 
-        return view('Inventory.details', compact('item'));
+        return view('Sales.details', compact('sales','id'));
     }
 
     public function storage(Request $request)
