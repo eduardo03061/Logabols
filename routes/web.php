@@ -5,6 +5,7 @@ use App\Http\Controllers\NominaController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\SalesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
