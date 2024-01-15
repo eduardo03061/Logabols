@@ -16,7 +16,6 @@ class CreateRegistrosSalesTable extends Migration
         Schema::create('registros_sales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('id_sales')->unsigned();
-            $table->foreign('id_sales')->references('id')->on('sales')->onDelete("cascade");
 
             $table->string('name');
             $table->bigInteger('bulks');
