@@ -78,4 +78,42 @@ class InventoryController extends Controller
             return back()->with('mensaje', $mensaje);
         }
     }
+
+
+    public function edit(Request $request, $id)
+    {
+        $item = Inventory::where('id', $id)->first();
+
+        return view('Inventory.edit', compact('item'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $item = Inventory::findOrFail($id);
+            $item->name = $request->get('Nombre');;
+            $item->bulks = $request->get('NBultos');
+            $item->kg = $request->get('KG');
+            $item->type = $request->get('Tipo');
+            $item->unidades = $request->get('Unidades');
+
+            $item->priceCompra = $request->get('priceCompra');
+            $item->priceSale = $request->get('priceSale');
+
+            $item->update();
+            $mensaje = "Actualizado con éxito";
+            return back()->with('mensaje', $mensaje);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withInput();
+        }
+    }
 }
