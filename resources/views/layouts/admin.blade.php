@@ -28,8 +28,8 @@
 
           Tip 2: you can also add an image using data-image tag
       -->
-        <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                Logabols
+        <div class="logo"><a href="#" class="simple-text logo-normal">
+                TitanDev
             </a></div>
         <div class="sidebar-wrapper">
             <ul id="sidebarnav" class="nav">
@@ -39,18 +39,32 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+
+                @if (Auth::user()->hasAnyRoleWithId([1]))
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ route('clientes.list') }}">
+                        <i class="material-icons">account_box</i>
+                        <p>Clientes</p>
+                    </a>
+                </li>
+                @endif
+
+                @if (Auth::user()->hasAnyRoleWithId([2]))
+
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('pedidos.list') }}">
                         <i class="material-icons">shopping_cart</i>
                         <p>Pedidos</p>
                     </a>
                 </li>
+                @if (Auth::user()->hasAnyRoleWithId([2]))
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('inventory.list') }}">
                         <i class="material-icons">library_books </i>
                         <p>Inventario</p>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('nomina.list') }}">
                         <i class="material-icons">payment</i>
@@ -63,7 +77,7 @@
                         <p>Ventas</p>
                     </a>
                 </li>
-
+                @endif
             </ul>
         </div>
     </div>
