@@ -66,9 +66,10 @@ Route::get('/Nomina/Detalles/{id}', [NominaController::class, 'show'])->name('no
 
 //Rutas de modulo cuentas por pagar
 Route::get('/Clientes', [ClientesController::class, 'index'])->name('clientes.list');
-Route::get('/Nomina/Registro_Nuevo', [ClientesController::class, 'create'])->name('clientes.create');
-Route::post('/Nomina/Registro_Nuevo', [ClientesController::class, 'storage'])->name('clientes.storage');
-Route::get('/Nomina/Detalles/{id}', [ClientesController::class, 'show'])->name('clientes.showdetails');
+Route::get('/Clientes/Registro_Nuevo', [ClientesController::class, 'create'])->name('clientes.create');
+Route::post('/Clientes/Registro_Nuevo', [ClientesController::class, 'storage'])->name('clientes.storage');
+Route::get('/Clientes/Detalles/{id}', [ClientesController::class, 'show'])->name('clientes.showdetails');
+Route::get('/Clientes/Historial/{id}', [ClientesController::class, 'historial'])->name('clientes.historial');
 
 
 

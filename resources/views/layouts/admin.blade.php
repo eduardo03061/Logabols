@@ -92,7 +92,7 @@
 
                 <div class="copyright float-right">
 
-                    <a href="https://www.logabols.com.mx" target="_blank">Logabols</a>
+                    <a href="https://www.logabols.com.mx" target="_blank">TitanDev</a>
                 </div>
             </div>
         </footer>

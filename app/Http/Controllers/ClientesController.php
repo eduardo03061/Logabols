@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 
-use App\Models\Sales;
-use App\Models\RegistrosSales;
+use App\Models\Clientes;
+use App\Models\RegistrosCuentas;
 use App\Models\CompanyUser;
 use App\Models\Inventory;
 use App\Models\User;
@@ -23,8 +23,13 @@ class ClientesController extends Controller
     public function index()
     {
 
+        $user_id = Auth::user()->id;
+        $company = CompanyUser::where('user_id', '=', $user_id)->first();
 
-        return view('Clientes.index');
+        $clientes = Clientes::where('company_id', '=', $company->id)->orderBy('id', 'DESC')->get();
+
+ 
+        return view('Clientes.index', compact('clientes'));
     }
 
     public function list()
@@ -40,25 +45,23 @@ class ClientesController extends Controller
 
     public function create()
     {
-        $items = Inventory::all();
-
-        return view('Sales.create', compact('items'));
+        return view('Clientes.create');
     }
 
 
-    public function print($id)
+    public function historial($id)
     {
-        $sales = Sales::where('id','=',$id)->first();
-        $items = RegistrosSales::where('id_sales', '=', $id)->get();
+        $cliente = Clientes::where('id','=',$id)->first();
+        $cuentas = RegistrosCuentas::where('id_cliente', '=', $id)->get();
 
-        return view('Sales.print', compact('items','sales'));
+        return view('Sales.print', compact('cliente','cuentas'));
     }
 
     public function show($id)
     {
-        $sales = RegistrosSales::where('id_sales', '=', $id)->get();
+        $cliente = Clientes::where('id', '=', $id)->first();
 
-        return view('Sales.details', compact('sales','id'));
+        return view('Clientes.details', compact('cliente'));
     }
 
     public function storage(Request $request)
@@ -68,60 +71,22 @@ class ClientesController extends Controller
                 $user_id = Auth::user()->id;
                 $company_id = CompanyUser::where('user_id', '=', $user_id)->first();
 
-                $arrayUnidades = $request->get('Unidades');
+             
+             
+                $cliente = new Clientes();
+                $cliente->clave = $request->get('clave');;
+                $cliente->nombres = $request->get('nombres');
+                $cliente->apellidos = $request->get('apellidos');
+                $cliente->telefono = $request->get('telefono');
+                $cliente->email = $request->get('email');
+                $cliente->direccion = $request->get('direccion');
+            
+
+                $cliente->company_id = $company_id->id;
+                $cliente->save();
 
 
-                $sales = new Sales();
-                $sales->payment_method = 'efectivo';
-                $sales->quantity = 0.0;
-                $sales->user_id = $user_id;
-                $sales->company_id = $company_id->id;
-                $sales->save();
-
-
-                $id_item = $request->get('Nombre');
-
-                $arrayNBultos = $request->get('NBultos');
-                $arrayKG = $request->get('KG');
-
-                $totalSales = 0;
-                for ($id = 0; $id < sizeof($arrayKG); $id++) {
-
-                    $item = Inventory::where('id', '=', $id_item[$id])->first();
-
-                    $registros = new RegistrosSales();
-
-                    $registros->name = $item->name;
-                    $registros->bulks = $arrayNBultos[$id];
-                    $registros->kg = $arrayKG[$id];
-
-                    $registros->unidades = $arrayUnidades[$id];
-                    $registros->id_sales = $sales->id;
-                    $registros->id_item = $id_item[$id];
-                    $registros->price = $item->priceSale;
-                    $totalSales += $item->priceSale * $arrayKG[$id];
-                    $registros->save();
-
-                    //Restar el inventario de la venta
-                    $updateInventory = Inventory::findOrFail($id_item[$id]);
-                    $newBulks = $item->bulks - $arrayNBultos[$id];
-                    $updateInventory->bulks = $newBulks;
-
-                    $newKG = $item->kg - $arrayKG[$id];
-                    $updateInventory->kg = $newKG;
-
-                    $newUnidades = $item->unidades - $arrayUnidades[$id];
-                    $updateInventory->unidades = $newUnidades;
-
-
-                    $updateInventory->update();
-                }
-
-                $updateSales = Sales::findOrFail($sales->id);
-                $updateSales->quantity = $totalSales;
-                $updateSales->update();
-
-
+               
                 $mensaje = "Correctamente creado";
                 return back()->with('mensaje', $mensaje);
             } else {
