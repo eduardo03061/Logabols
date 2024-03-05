@@ -6,6 +6,9 @@ use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\SalesController;
 
+
+use App\Http\Controllers\ClientesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +61,16 @@ Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');
 Route::get('/Nomina/Registro_Nuevo', [NominaController::class, 'create'])->name('nomina.create');
 Route::post('/Nomina/Registro_Nuevo', [NominaController::class, 'storage'])->name('nomina.storage');
 Route::get('/Nomina/Detalles/{id}', [NominaController::class, 'show'])->name('nomina.showdetails');
+
+
+
+//Rutas de modulo cuentas por pagar
+Route::get('/Clientes', [ClientesController::class, 'index'])->name('clientes.list');
+Route::get('/Nomina/Registro_Nuevo', [ClientesController::class, 'create'])->name('clientes.create');
+Route::post('/Nomina/Registro_Nuevo', [ClientesController::class, 'storage'])->name('clientes.storage');
+Route::get('/Nomina/Detalles/{id}', [ClientesController::class, 'show'])->name('clientes.showdetails');
+
+
 
 
 Auth::routes();
