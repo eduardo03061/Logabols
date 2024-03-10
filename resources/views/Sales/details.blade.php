@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="javascript:;">Pedidos</a>
+                <a class="navbar-brand" href="javascript:;">Ventas</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
             <form action="{{ route('sales.storage') }}" method="POST">
                 @csrf
                 <div class="p-4" style="background:#f5f5f5;  margin-bottom:1em; padding-top:1em; padding-bottom:1em;">
-                    <h3>Pedido de:</h3>
+                    <h3>Venta</h3>
                     <div class="row col-12">
                         <table class="table mx-auto">
                             <thead class="thead-dark">
