@@ -40,7 +40,7 @@
                     </a>
                 </li>
 
-                @if (Auth::user()->hasAnyRoleWithId([1]))
+                @if (Auth::user()->hasAnyRoleWithId([3]))
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('clientes.list') }}">
                         <i class="material-icons">account_box</i>
@@ -49,7 +49,7 @@
                 </li>
                 @endif
 
-                @if (Auth::user()->hasAnyRoleWithId([2]))
+                @if (Auth::user()->hasAnyRoleWithId([1]))
 
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('pedidos.list') }}">
@@ -57,20 +57,22 @@
                         <p>Pedidos</p>
                     </a>
                 </li>
-                @if (Auth::user()->hasAnyRoleWithId([2]))
+                
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('inventory.list') }}">
                         <i class="material-icons">library_books </i>
                         <p>Inventario</p>
                     </a>
                 </li>
-                @endif
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('nomina.list') }}">
                         <i class="material-icons">payment</i>
                         <p>Nomina</p>
                     </a>
                 </li>
+                @endif
+    
+                @if (Auth::user()->hasAnyRoleWithId([1,2]))           
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('sales.index') }}">
                         <i class="material-icons">shopping_cart_checkout</i>
@@ -78,6 +80,7 @@
                     </a>
                 </li>
                 @endif
+               
             </ul>
         </div>
     </div>
