@@ -65,9 +65,47 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                    <div class="card card-body">
+                        <h4>Lista de contratas</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-secondary">
+                                <th>
+                                    Num
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+
+                                </thead>
+                                <tbody>
+
+
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('nomina.showdetails', $cliente->id)  }}" class="text-secondary">{{$cliente->id}}</a>
+                                    </td>
+                                    <td>
+                                        s
+                                    </td>
+
+                                    <td class="text-secondary">
+                                        $ s
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
                 <a href="{{ url()->previous() }}" class="btn btn-success mx-auto">Atras</a>
-                <a href="{{ route('clientes.historial') }}" class="btn btn-info mx-auto">Ver detalles</a>
+                <a href="{{ route('clientes.historial',$cliente->id) }}" class="btn btn-info mx-auto">Ver detalles</a>
 
             </div>
         </div>
