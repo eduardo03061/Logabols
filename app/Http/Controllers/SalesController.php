@@ -31,9 +31,6 @@ class SalesController extends Controller
     {
         $user_id = Auth::user()->id;
         $company = CompanyUser::where('user_id', '=', $user_id)->first();
-
-        //dd($company->company_id);
-
         $sales = Sales::where('company_id', '=', $company->company_id)->orderBy('id', 'DESC')->get();
 
 
