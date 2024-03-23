@@ -32,7 +32,9 @@ class SalesController extends Controller
         $user_id = Auth::user()->id;
         $company = CompanyUser::where('user_id', '=', $user_id)->first();
 
-        $sales = Sales::where('company_id', '=', $company->id)->orderBy('id', 'DESC')->get();
+        //dd($company->company_id);
+
+        $sales = Sales::where('company_id', '=', $company->company_id)->orderBy('id', 'DESC')->get();
 
 
         return view('Sales.list', compact('sales'));
@@ -75,7 +77,7 @@ class SalesController extends Controller
                 $sales->payment_method = 'efectivo';
                 $sales->quantity = 0.0;
                 $sales->user_id = $user_id;
-                $sales->company_id = $company_id->id;
+                $sales->company_id = $company_id->company_id;
                 $sales->save();
 
 
