@@ -166,7 +166,7 @@
 
                         <li class="nav-item dropdown active">
 
-                            <a class="nav-link" href="#">INICIO</a>
+                            <a class="nav-link" href="{{ url('/') }}">INICIO</a>
 
                         </li>
 
@@ -232,14 +232,14 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="http://www.logabols.com.mx/assets/images/Logo.jpg" class="d-block w-100" alt="...">
+                    <img src="assets/images/Logo.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="http://www.logabols.com.mx/Imagenes/Logabols2018.jpg" class="d-block w-50 mx-auto"
+                    <img src="assets/images/Productos.jpg" class="d-block w-50 mx-auto"
                          alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="http://www.logabols.com.mx/Imagenes/Basura.jpeg" class="d-block w-50 mx-auto" alt="...">
+                    <img src="assets/images/Productos2.jpg" class="d-block w-50 mx-auto" alt="...">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -317,7 +317,7 @@
 
             <div class="row">
 
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> Copyright &copy; 2020
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> Copyright &copy; 2024
 
                     <span class="separator-pipesign"></span>
 
@@ -325,7 +325,7 @@
 
                     <span class="separator-pipesign"></span>
 
-                    <a href="#">Logabols</a>
+                    <a href="">Logabols</a>
                 </div>
 
             </div>
