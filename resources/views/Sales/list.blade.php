@@ -23,7 +23,7 @@
                         </button>
                     </div>
                 </form>
-                <ul class="navbar-nav">                 
+                <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
@@ -55,7 +55,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{ route('pedidos.create') }}" class="btn btn-success float-right">Agregar</a><br><br>
+                    <a href="{{ route('sales.create') }}" class="btn btn-success float-right">Agregar</a><br><br>
                     <div class="card">
                         <div class="card-header card-header-success">
                             <h4 class="card-title ">Ventas</h4>
@@ -93,7 +93,8 @@
                                                 {{$sale->quantity}}
                                             </td>
                                             <td class="text-primary">
-                                                {{$sale->created_at}}
+
+                                                {{date('d-m-Y h:i A', strtotime($sale->created_at));}}
                                             </td>
                                         </tr>
                                     @endforeach
