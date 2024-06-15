@@ -68,13 +68,14 @@ class SalesController extends Controller
                 $company_id = CompanyUser::where('user_id', '=', $user_id)->first();
 
                 $arrayUnidades = $request->get('Unidades');
-
+                //dd(strtotime($request->get('date')));
 
                 $sales = new Sales();
                 $sales->payment_method = 'efectivo';
                 $sales->quantity = 0.0;
                 $sales->user_id = $user_id;
                 $sales->company_id = $company_id->company_id;
+                $sales->created_at = strtotime($request->get('date'));
                 $sales->save();
 
 
@@ -99,6 +100,7 @@ class SalesController extends Controller
                     $registros->id_item = $id_item[$id];
                     $registros->price = $item->priceSale;
                     $totalSales += $item->priceSale * $arrayKG[$id];
+                    $registros->created_at = strtotime($request->get('date'));
                     $registros->save();
 
                     //Restar el inventario de la venta
