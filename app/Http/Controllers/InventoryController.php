@@ -116,4 +116,19 @@ class InventoryController extends Controller
             return redirect()->back()->withInput();
         }
     }
+
+    public function delete(Request $request, $id)
+    {
+        try {
+            $item = Inventory::findOrFail($id);
+            $item->delete();
+    
+            return redirect()->back()->with('message', 'Se eliminó con exito');
+        
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withInput();
+        }
+    }
 }
