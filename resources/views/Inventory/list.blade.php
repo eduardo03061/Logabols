@@ -77,26 +77,39 @@
                                         Nombre
                                     </th>
                                     <th>
-                                        Unidades
+                                        N-Bultos
                                     </th>
                                     <th>
-                                        Precio
+                                        KG
+                                    </th>
+                                    <th>
+                                        Tipo
+                                    </th>
+                                    <th>
+                                        Unidades
                                     </th>
                                     <th>
                                         Acciones
                                     </th>
                                 </thead>
                                 <tbody id="idTR">
+
                                     @foreach($inventory as $item)
                                     <tr>
                                         <td>
                                             <a href="{{ route('inventory.showdetails', $item->id)  }}">{{$item->name}}</a>
                                         </td>
-                                        <td class="text-secondary">
-                                            {{$item->stocks}}
+                                        <td>
+                                            {{$item->bulks}}
                                         </td>
                                         <td class="text-secondary">
-                                            ${{$item->sellingPrice}}
+                                            {{$item->kg}}
+                                        </td>
+                                        <td class="text-secondary">
+                                            {{$item->type}}
+                                        </td>
+                                        <td class="text-secondary">
+                                            {{$item->unidades}}
                                         </td>
                                         <td>
                                             <button id="btnGroupDrop1" type="button" class="btn btn-success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -104,7 +117,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <a class="dropdown-item" href="{{route('inventory.edit',$item->id)}}">Editar Articulo</a>
-                                                <form action="{{route('inventory.delete',$item->id)}}" method="POST">
+                                                <form action="{{route('inventory.delete',$item)}}" method="POST">
                                                     @csrf
                                                     <input class="dropdown-item" type="submit" value="Eliminar">
                                                 </form>
@@ -112,6 +125,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -150,13 +164,16 @@
                             <a href="Inventory/Details/${itemFind.id}">${itemFind.name}</a>
                         </td>
                         <td class="text-secondary">
-                            ${itemFind.stocks}
+                            ${itemFind.bulks}
                         </td>
                         <td class="text-secondary">
-                            ${itemFind.sellingPrice}
+                            ${itemFind.kg}
                         </td>
-                        <td>
-                            
+                        <td class="text-secondary">
+                            ${itemFind.type}
+                        </td>
+                        <td class="text-secondary">
+                            ${itemFind.unidades}
                         </td>
                     </tr>`;
             itemElements += newtr;
