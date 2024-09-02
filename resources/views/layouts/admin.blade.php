@@ -17,12 +17,12 @@
     <!-- CSS Files -->
     <link href="{{ asset('css/material-dashboard.css') }}" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{ asset('demo/demo.css') }}" rel="stylesheet"/>
+
 </head>
 
 <body class="">
 <div class="wrapper ">
-    <div class="sidebar" data-color="green" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="green" data-background-color="white" >
         <!--
           Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -57,7 +57,7 @@
                         <p>Pedidos</p>
                     </a>
                 </li>
-                
+
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('inventory.list') }}">
                         <i class="material-icons">library_books </i>
@@ -71,8 +71,8 @@
                     </a>
                 </li>
                 @endif
-    
-                @if (Auth::user()->hasAnyRoleWithId([1,2]))           
+
+                @if (Auth::user()->hasAnyRoleWithId([1,2]))
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('sales.index') }}">
                         <i class="material-icons">shopping_cart_checkout</i>
@@ -80,7 +80,7 @@
                     </a>
                 </li>
                 @endif
-               
+
             </ul>
         </div>
     </div>
@@ -101,7 +101,7 @@
         </footer>
     </div>
 </div>
-
+@stack('scripts')
 <!--   Core JS Files   -->
 <script src="{{ asset('js/core/jquery.min.js') }}"></script>
 <script src="{{ asset('js/core/popper.min.js') }}"></script>
@@ -132,19 +132,18 @@
 <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 <script src="{{ asset('js/plugins/nouislider.min.js') }}"></script>
 <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
 <!-- Library for adding dinamically elements -->
 <script src="{{ asset('js/plugins/arrive.min.js') }}"></script>
 <!--  Google Maps Plugin    -->
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Chartist JS -->
-<script src="{{ asset('}js/plugins/chartist.min.js') }}"></script>
+
 <!--  Notifications Plugin    -->
 <script src="{{ asset('js/plugins/bootstrap-notify.js') }}"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{ asset('js/material-dashboard.js') }}" type="text/javascript"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{ asset('demo/demo.js') }}"></script>
+
 <script>
     $(document).ready(function () {
         $().ready(function () {
