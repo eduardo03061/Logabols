@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">Inventario</a>
+            <a class="navbar-brand" href="">Inventario</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -15,7 +15,8 @@
         <div class="collapse navbar-collapse justify-content-end">
             <form class="navbar-form">
                 <div class="input-group no-border">
-                    <input type="text" class="form-control" id="search" onkeyup="searchFunction()">
+                    <input type="text" id="search" class="form-control search-bar" placeholder="Buscar..."
+                           onkeyup="searchFunction()"/>
                     <button type="submit" class="btn btn-white btn-round btn-just-icon">
                         <i class="material-icons">search</i>
                         <div class="ripple-container"></div>
@@ -59,7 +60,7 @@
     </div>
 </nav>
 
-<div class="content">
+<div class="content" id="vueItemsList">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -69,63 +70,46 @@
                         <h4 class="card-title ">Inventario</h4>
                         <p class="card-category">Lista de Articulos</p>
                     </div>
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead class="text-secondary">
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        N-Bultos
-                                    </th>
-                                    <th>
-                                        KG
-                                    </th>
-                                    <th>
-                                        Tipo
-                                    </th>
-                                    <th>
-                                        Unidades
-                                    </th>
-                                    <th>
-                                        Acciones
-                                    </th>
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Bultos</th>
+                                    <th>KG</th>
+                                    <th>Tipo</th>
+                                    <th>Unidades</th>
+                                    <th>Acciones</th>
+                                </tr>
                                 </thead>
                                 <tbody id="idTR">
-
-                                    @foreach($inventory as $item)
-                                    <tr>
-                                        <td>
-                                            <a href="{{ route('inventory.showdetails', $item->id)  }}">{{$item->name}}</a>
-                                        </td>
-                                        <td>
-                                            {{$item->bulks}}
-                                        </td>
-                                        <td class="text-secondary">
-                                            {{$item->kg}}
-                                        </td>
-                                        <td class="text-secondary">
-                                            {{$item->type}}
-                                        </td>
-                                        <td class="text-secondary">
-                                            {{$item->unidades}}
-                                        </td>
-                                        <td>
-                                            <button id="btnGroupDrop1" type="button" class="btn btn-success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <tr v-for="item in filteredItems" :key="item.id">
+                                    <td><a :href="`Inventory/Details/${item.id}`">@{{ item.name }}</a></td>
+                                    <td class="text-secondary">@{{ item.bulks }}</td>
+                                    <td class="text-secondary">@{{ item.kg }}</td>
+                                    <td class="text-secondary">@{{ item.type }}</td>
+                                    <td class="text-secondary">@{{ item.unidades }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="secondary-btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <img src="{{ asset('assets/images/engranaje.svg')}}" alt="" width="20px">
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="{{route('inventory.edit',$item->id)}}">Editar Articulo</a>
-                                                <form action="{{route('inventory.delete',$item)}}" method="POST">
+
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                <a :href="`Inventory/Edit/${item.id}`" class="dropdown-item">Editar Articulo</a>
+
+                                                <form :action="`Inventory/Delete/${item.id}`" method="POST">
                                                     @csrf
-                                                    <input class="dropdown-item" type="submit" value="Eliminar">
+                                                    <button class="dropdown-item" type="submit">Eliminar</button>
                                                 </form>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -135,52 +119,59 @@
         </div>
     </div>
 </div>
+@endsection
 
-<script>
-    let items = @json($inventory);
-
-
-    function searhItem(pattern) {
-        // Filtrar el array de alumnos usando una expresión regular en el nombre
-        let resultados = items.filter(item => {
-            // Crear una expresión regular con el patrón proporcionado
-            let regex = new RegExp(pattern, 'i'); // 'i' para hacer la búsqueda case insensitive
-            return regex.test(item.name);
+@push('scripts')
+    <script src="{{ asset('js/vue.js') }}"></script>
+    <script>
+        new Vue({
+            el: '#vueItemsList',
+            data: {
+                cards: true,
+                list: false,
+                items: @json($inventory),
+                searchQuery: ''
+            },
+            computed: {
+                filteredItems() {
+                    console.log('entra')
+                    console.log('items',this.items)
+                    return this.items.filter(item => {
+                        return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+                    });
+                }
+            },
+            methods: {
+                onSelectView(type) {
+                    this.cards = type === 'cards';
+                    this.list = type !== 'cards';
+                }
+            }
         });
 
-        return resultados; // Devuelve un array de alumnos que coinciden con el patrón
-    }
+        function searchFunction() {
+            var app = document.getElementById('vueItemsList').__vue__;
+            app.searchQuery = document.getElementById('search').value;
+        }
 
-    function searchFunction() {
-        let item = items[0];
+        function reload() {
+            window.location.href = "{{ route('inventory.list') }}";
+        }
 
-        let articuloEncontrado = searhItem(document.getElementById('search').value)
+        @if(session('mensaje'))
+        @if(session('mensaje') == 'Correctamente creado')
+        setInterval('reload()', 2000);
+        @endif
+        @endif
 
-        let itemElements = ''
+        function openNav(navId) {
+            document.getElementById(navId).style.width = "50vh";
 
-        articuloEncontrado.forEach(itemFind => {
-            let newtr = `<tr>
-                        <td>
-                            <a href="Inventory/Details/${itemFind.id}">${itemFind.name}</a>
-                        </td>
-                        <td class="text-secondary">
-                            ${itemFind.bulks}
-                        </td>
-                        <td class="text-secondary">
-                            ${itemFind.kg}
-                        </td>
-                        <td class="text-secondary">
-                            ${itemFind.type}
-                        </td>
-                        <td class="text-secondary">
-                            ${itemFind.unidades}
-                        </td>
-                    </tr>`;
-            itemElements += newtr;
-        })
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
 
-        $("tbody#idTR").replaceWith(`<tbody id='idTR'>${itemElements}</tbody>`);
-    }
-</script>
-
-@endsection
+        function closeNav(navId) {
+            document.getElementById(navId).style.width = "0";
+        }
+    </script>
+@endpush
