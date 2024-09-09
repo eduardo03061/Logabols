@@ -22,7 +22,7 @@
 
 <body class="">
 <div class="wrapper ">
-    <div class="sidebar" data-color="green" data-background-color="white" >
+    <div class="sidebar" data-color="green" data-background-color="white">
         <!--
           Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -41,44 +41,43 @@
                 </li>
 
                 @if (Auth::user()->hasAnyRoleWithId([3]))
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('clientes.list') }}">
-                        <i class="material-icons">account_box</i>
-                        <p>Clientes</p>
-                    </a>
-                </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('clientes.list') }}">
+                            <i class="material-icons">account_box</i>
+                            <p>Clientes</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('pedidos.list') }}">
+                            <i class="material-icons">shopping_cart</i>
+                            <p>Pedidos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('nomina.list') }}">
+                            <i class="material-icons">payment</i>
+                            <p>Nomina</p>
+                        </a>
+                    </li>
                 @endif
 
                 @if (Auth::user()->hasAnyRoleWithId([1]))
 
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('pedidos.list') }}">
-                        <i class="material-icons">shopping_cart</i>
-                        <p>Pedidos</p>
-                    </a>
-                </li>
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('inventory.list') }}">
-                        <i class="material-icons">library_books </i>
-                        <p>Inventario</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('nomina.list') }}">
-                        <i class="material-icons">payment</i>
-                        <p>Nomina</p>
-                    </a>
-                </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('inventory.list') }}">
+                            <i class="material-icons">library_books </i>
+                            <p>Inventario</p>
+                        </a>
+                    </li>
                 @endif
 
                 @if (Auth::user()->hasAnyRoleWithId([1,2]))
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('sales.index') }}">
-                        <i class="material-icons">shopping_cart_checkout</i>
-                        <p>Ventas</p>
-                    </a>
-                </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('sales.index') }}">
+                            <i class="material-icons">shopping_cart_checkout</i>
+                            <p>Ventas</p>
+                        </a>
+                    </li>
                 @endif
 
             </ul>
