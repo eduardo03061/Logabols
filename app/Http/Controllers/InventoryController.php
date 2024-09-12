@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Inventory;
 use App\Models\User;
 use Auth;
+use App\Exports\InventoryExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InventoryController extends Controller
 {
@@ -79,7 +81,10 @@ class InventoryController extends Controller
         }
     }
 
-
+    public function export()
+    {
+        return Excel::download(new InventoryExport, 'inventory.xlsx');
+    }
     public function edit(Request $request, $id)
     {
         $item = Inventory::where('id', $id)->first();
@@ -122,9 +127,9 @@ class InventoryController extends Controller
         try {
             $item = Inventory::findOrFail($id);
             $item->delete();
-    
+
             return redirect()->back()->with('message', 'Se eliminó con exito');
-        
+
 
         } catch (\Exception $e) {
             DB::rollback();
