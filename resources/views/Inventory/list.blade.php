@@ -48,8 +48,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{ route('inventory.create') }}" class="btn btn-success float-right">Agregar</a><br><br>
-                    <div class="input-group no-border">
+                    <a href="{{ route('inventory.export') }}" class="btn btn-success float-left">Exportar a excel</a>
+                    <a href="{{ route('inventory.create') }}" class="btn btn-success float-right">Agregar</a>
+                    <br><br>
+                    <div class="input-group no-border mt-5">
                         <input type="text" id="search" class="form-control search-bar" placeholder="Buscar..."
                                onkeyup="searchFunction()"/>
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
