@@ -47,6 +47,9 @@ Route::get('/Inventory/Edit/{id}', [InventoryController::class, 'edit'])->name('
 Route::post('/Inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
 Route::post('/Inventory/Delete/{id}', [InventoryController::class, 'delete'])->name('inventory.delete');
 
+Route::get('/Inventory/export', [InventoryController::class, 'export'])->name('inventory.export');
+
+
 
 
 Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
