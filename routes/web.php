@@ -75,6 +75,10 @@ Route::get('/Clientes/Detalles/{id}', [ClientesController::class, 'show'])->name
 Route::get('/Clientes/Historial/{id}', [ClientesController::class, 'historial'])->name('clientes.historial');
 
 
+ 
+Route::get('/privacy', function () {
+    return view('privacidad');
+});
 
 
 Auth::routes();
