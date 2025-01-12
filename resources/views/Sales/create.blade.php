@@ -78,11 +78,11 @@
                                 <td><input class="form-control" name="Nombre[]" id="nombresInput"
                                            list="nombres" required></td>
                                 <td><input type="number" class="form-control" name="NBultos[]" id="NBultos"
-                                           placeholder="" required></td>
+                                           placeholder="" min="0" required></td>
                                 <td><input type="number" class="form-control" name="KG[]" id="KG"
-                                           placeholder="" step="0.01" required></td>
+                                           placeholder="" min="0.5" step="0.01" required></td>
                                 <td><input type="number" class="form-control" name="Unidades[]" id="unidades"
-                                           placeholder="" required></td>
+                                           placeholder="" min="0" required></td>
 
                             </tr>
                             <input id="dateSale" name="date" type="hidden" value=""/>
