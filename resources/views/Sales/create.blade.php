@@ -77,11 +77,11 @@
                             <tr v-for="cronico in cronicos">
                                 <td><input class="form-control" name="Nombre[]" id="nombresInput"
                                            list="nombres" required></td>
-                                <td><input type="text" class="form-control" name="NBultos[]" id="NBultos"
+                                <td><input type="number" class="form-control" name="NBultos[]" id="NBultos"
                                            placeholder="" required></td>
                                 <td><input type="number" class="form-control" name="KG[]" id="KG"
                                            placeholder="" step="0.01" required></td>
-                                <td><input type="text" class="form-control" name="Unidades[]" id="unidades"
+                                <td><input type="number" class="form-control" name="Unidades[]" id="unidades"
                                            placeholder="" required></td>
 
                             </tr>
