@@ -58,6 +58,7 @@ Route::post('/Sales/new-sale', [SalesController::class, 'storage'])->name('sales
 Route::get('/Sales/list', [SalesController::class, 'list'])->name('sales.list');
 Route::get('/Sales/Details/{id}', [SalesController::class, 'show'])->name('sales.showdetails');
 Route::get('/Sales/Print/{id}', [SalesController::class, 'print'])->name('sales.print');
+Route::post('/Sales/Cancell/{id}', [SalesController::class, 'cancell'])->name('sales.cancell');
 
 
 Route::get('/Nomina', [NominaController::class, 'index'])->name('nomina.list');

@@ -11,6 +11,7 @@ use App\Models\CompanyUser;
 use App\Models\Inventory;
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
@@ -47,17 +48,17 @@ class SalesController extends Controller
 
     public function print($id)
     {
-        $sales = Sales::where('id','=',$id)->first();
+        $sales = Sales::where('id', '=', $id)->first();
         $items = RegistrosSales::where('id_sales', '=', $id)->get();
 
-        return view('Sales.print', compact('items','sales'));
+        return view('Sales.print', compact('items', 'sales'));
     }
 
     public function show($id)
     {
         $sales = RegistrosSales::where('id_sales', '=', $id)->get();
 
-        return view('Sales.details', compact('sales','id'));
+        return view('Sales.details', compact('sales', 'id'));
     }
 
     public function storage(Request $request)
@@ -128,12 +129,54 @@ class SalesController extends Controller
             } else {
                 return view('welcome');
             }
-
-
         } catch (\Exception $e) {
             dd($e);
             $mensaje = "error al crear solicitud";
             return back()->with('mensaje', $mensaje);
+        }
+    }
+
+
+
+    public function cancell(Request $request, $id)
+    {
+        try {
+            // Encuentra la venta por su ID
+            $sale = Sales::find($id);
+
+            if (!$sale) {
+                return response()->json(['message' => 'Sale not found'], 404);
+            }
+
+            // Itera sobre los ítems de la venta en RegistrosSales
+            $registrosSalesItems = RegistrosSales::where('id_sales', $id)->get();
+             
+            foreach ($registrosSalesItems as $item) {
+                // Encuentra el ítem en el inventario
+                $inventoryItem = Inventory::find($item->id_item);
+                
+                if ($inventoryItem) {
+                    // Restaura la cantidad del ítem en el inventario
+                    $inventoryItem->kg += $item->kg;
+                    $inventoryItem->save();
+                }
+                $item->bulks = 0;
+                $item->unidades = 0;
+                $item->kg = 0.0;
+                $item->name = '';
+                $item->price = 0.0;
+                $item->save();
+            }
+
+            // Marca la venta como cancelada
+            $sale->quantity = 0.0;
+            $sale->save();
+
+            return redirect()->back()->with('message', 'Se cancelo con exito');
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            return redirect()->back()->withInput();
         }
     }
 }
